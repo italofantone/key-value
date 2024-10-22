@@ -73,4 +73,24 @@ class SettingTest extends TestCase
 
         $this->assertEquals('My APP', $value);
     }
+
+    public function test_it_can_get_a_setting_value_by_route(): void
+    {
+        $this->get('/v1/setting/title')
+            ->assertStatus(200)
+            ->assertJson([
+                'title' => null
+            ]);
+
+        DB::table('settings')->insert([
+            'key' => 'title',
+            'value' => 'My APP'
+        ]);
+ 
+        $this->get('/v1/setting/title')
+            ->assertStatus(200)
+            ->assertJson([
+                'title' => 'My APP'
+            ]);
+    }
 }
