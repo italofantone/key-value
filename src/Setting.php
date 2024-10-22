@@ -10,7 +10,12 @@ class Setting extends Model
 {
     protected $fillable = ['key', 'value'];
 
-    public function set($key, $value)
+    public function get(string $key)
+    {
+        return $this->where('key', $key)->value('value');
+    }
+
+    public function set(string $key, mixed $value): self
     {
         $validator = Validator::make([
             'key' => $key,
@@ -27,7 +32,7 @@ class Setting extends Model
         return $this->updateOrCreateSetting($key, $value);
     }
 
-    protected function updateOrCreateSetting($key, $value)
+    protected function updateOrCreateSetting(string $key, mixed $value): self
     {
         return $this->updateOrCreate([
             'key' => strtolower($key)
