@@ -15,4 +15,15 @@ class SettingTest extends TestCase
             'value' => 'My APP'
         ]);
     }
+
+    public function test_it_can_update_a_key()
+    {
+        SettingFacade::set('TiTlE', 'My APP');
+        SettingFacade::set('title', 'New APP');
+
+        $this->assertDatabaseHas('settings', [
+            'key' => 'title',
+            'value' => 'New APP'
+        ]);
+    }
 }
