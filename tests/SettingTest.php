@@ -49,4 +49,28 @@ class SettingTest extends TestCase
 
         $this->assertEquals('My APP', $value);
     }
+
+    public function test_it_returns_null_when_key_does_not_exist(): void
+    {
+        $value = SettingFacade::get('title');
+
+        $this->assertNull($value);
+    }
+
+    public function test_helper_can_get_a_setting_by_key(): void
+    {
+        DB::table('settings')->insert([
+            'key' => 'title',
+            'value' => 'My APP'
+        ]);
+
+        $this->assertDatabaseHas('settings', [
+            'key' => 'title',
+            'value' => 'My APP'
+        ]);
+
+        $value = setting('title');
+
+        $this->assertEquals('My APP', $value);
+    }
 }

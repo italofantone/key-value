@@ -16,7 +16,10 @@
     "autoload": {
         "psr-4": {
             "Italofantone\\Setting\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
