@@ -2,6 +2,7 @@
 
 namespace Italofantone\Setting\Tests;
 
+use Illuminate\Validation\ValidationException;
 use Italofantone\Setting\Facades\Setting as SettingFacade;
 
 class SettingTest extends TestCase
@@ -25,5 +26,14 @@ class SettingTest extends TestCase
             'key' => 'title',
             'value' => 'New APP'
         ]);
+    }
+
+    public function test_it_throws_an_exception_when_key_or_value_is_empty()
+    {
+        $this->expectException(ValidationException::class);
+        SettingFacade::set('', 'value');
+
+        $this->expectException(ValidationException::class);
+        SettingFacade::set('key', '');
     }
 }
