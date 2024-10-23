@@ -18,6 +18,16 @@ class SettingTest extends TestCase
         ]);
     }
 
+    public function test_it_can_set_a_null_value(): void
+    {
+        SettingFacade::set('title', null);
+
+        $this->assertDatabaseHas('settings', [
+            'key' => 'title',
+            'value' => null
+        ]);
+    }
+
     public function test_it_can_update_a_key(): void
     {
         SettingFacade::set('TiTlE', 'My APP');
@@ -29,13 +39,10 @@ class SettingTest extends TestCase
         ]);
     }
 
-    public function test_it_throws_an_exception_when_key_or_value_is_empty(): void
+    public function test_it_throws_an_exception_when_key_is_empty(): void
     {
         $this->expectException(ValidationException::class);
-        SettingFacade::set('', 'value');
-
-        $this->expectException(ValidationException::class);
-        SettingFacade::set('key', '');
+        SettingFacade::set('', 'My APP');
     }
 
     public function test_it_can_get_a_setting_by_key(): void

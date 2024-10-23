@@ -15,14 +15,12 @@ class Setting extends Model
         return $this->where('key', $key)->value('value');
     }
 
-    public function set(string $key, mixed $value): self
+    public function set(string $key, mixed $value = null): self
     {
         $validator = Validator::make([
-            'key' => $key,
-            'value' => $value
+            'key' => $key
         ], [
-            'key' => 'required|string',
-            'value' => 'required'
+            'key' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -32,7 +30,7 @@ class Setting extends Model
         return $this->updateOrCreateSetting($key, $value);
     }
 
-    protected function updateOrCreateSetting(string $key, mixed $value): self
+    protected function updateOrCreateSetting(string $key, mixed $value = null): self
     {
         return $this->updateOrCreate([
             'key' => strtolower($key)
