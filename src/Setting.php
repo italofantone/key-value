@@ -10,9 +10,11 @@ class Setting extends Model
 {
     protected $fillable = ['key', 'value'];
 
-    public function get(string $key)
+    public function get(string $key, mixed $default = null): mixed
     {
-        return $this->where('key', $key)->value('value');
+        $value = $this->where('key', $key)->value('value');
+
+        return $value !== null ? $value : $default;
     }
 
     public function set(string $key, mixed $value = null): self

@@ -57,6 +57,13 @@ class SettingTest extends TestCase
         $this->assertEquals('My APP', $value);
     }
 
+    public function test_get_returns_default_when_not_exists()
+    {
+        $setting = SettingFacade::get('no_existe', 'Valor por defecto');
+
+        $this->assertEquals('Valor por defecto', $setting);
+    }
+
     public function test_it_returns_null_when_key_does_not_exist(): void
     {
         $value = SettingFacade::get('title');
